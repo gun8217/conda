@@ -12,27 +12,33 @@ print(f"{preds = }")
 print(f"{labels = }\n")
 
 # 혼동 행렬의 요소 계산 type1
-TP = TN = FP = FN = 0
+TP1 = TN1 = FP1 = FN1 = 0
 for pred, label in zip(preds, labels):
     if pred == 1 and label == 1:
-        TP += 1
+        TP1 += 1
     elif pred == 0 and label == 0:
-        TN += 1
+        TN1 += 1
     elif pred == 0 and label == 1:
-        FP += 1
+        FP1 += 1
     elif pred == 1 and label == 0:
-        FN += 1
-print(f"{TP = }, {TN = }, {FP = }, {FN = }\n")
+        FN1 += 1
+print(f"{TP1 = }, {TN1 = }, {FP1 = }, {FN1 = }\n")
 
 # 혼동 행렬의 요소 계산 type2
-n_TP = n_TN = n_FP = n_FN = 0
+TP2 = TN2 = FP2 = FN2 = 0
 for pred, label in zip(preds, labels):
     if pred == label:    
-        if pred == 1 : n_TP += 1
-        else: n_TN += 1
+        if pred == 1 : TP2 += 1
+        else: TN2 += 1
     else:
-        if pred == 1 : n_FP += 1
-        else: n_FN += 1
+        if pred == 1 : FN2 += 1
+        else: FP2 += 1
 
-print(f"{n_TP = } | {n_FP = }\n")
-print(f"{n_FN = } | {n_TN = }")
+print(f"{TP2 = }, {TN2 = }, {FP2 = }, {FN2 = }\n")
+
+# 혼동 행렬의 요소 계산 type3
+TP3 = sum(1 for pred, label in zip(preds, labels) if pred == 1 and label == 1)
+TN3 = sum(1 for pred, label in zip(preds, labels) if pred == 0 and label == 0)
+FP3 = sum(1 for pred, label in zip(preds, labels) if pred == 0 and label == 1)
+FN3 = sum(1 for pred, label in zip(preds, labels) if pred == 1 and label == 0)
+print(f"{TP3 = }, {TN3 = }, {FP3 = }, {FN3 = }\n")
