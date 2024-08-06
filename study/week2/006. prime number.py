@@ -1,6 +1,9 @@
-# 값이 변하지 않는 상수로서의 역할을 할 때 사용(NOT_PRIME = False)
-num = int(input("IS_PRIME: "))
+# 값이 변하지 않는 상수로서의 역할을 할 때 사용
+
+num = int(input("IS_PRIME: ")) # NOT_PRIME = False
+
 IS_PRIME = True
+
 for divisor in range(2, num): # 2번부터 입력 받은 값 이전 까지 변수(divisor)에 담아라
     if num % divisor == 0: # 만약 변수 값으로 입력 받은 값을 나눴을 때 0이랑 같으면
         IS_PRIME = False # prime number는 거짓이 된다

@@ -1,8 +1,8 @@
-import random
-
 # ReLU(ativation 함수) : 양수-x, 음수-0
 # 딥러닝 및 머신러닝에서 사용(비선형 함수, 신경망의 복잡성을 증가시키고 모델의 성능을 개선)
 # 컨볼루션 신경망(CNN)과 다층 퍼셉트론(MLP)에서 사용
+import random
+
 num = int(input("ReLU : "))
 if num > 0: relu = num
 else: relu = 0
