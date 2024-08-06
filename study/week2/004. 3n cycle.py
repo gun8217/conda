@@ -1,3 +1,4 @@
+# 3n cycle
 num = int(input("Enter a number : "))
 
 if num % 3 == 0:

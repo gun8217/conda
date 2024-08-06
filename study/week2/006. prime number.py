@@ -1,4 +1,4 @@
-# 값이 변하지 않는 상수로서의 역할을 할 때 사용
+# prime number : 값이 변하지 않는 상수로서의 역할을 할 때 사용
 
 num = int(input("IS_PRIME: ")) # NOT_PRIME = False
 

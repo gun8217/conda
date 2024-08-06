@@ -1,3 +1,4 @@
+# tp, tn, fp, fn(혼동행렬)
 # True Positive (TP): Positive 클래스를 정확히 예측한 경우(긍정적인 클래스를 올바르게 식별한 수)
 # True Negative (TN): Negative 클래스를 정확히 예측한 경우(부정적인 클래스를 올바르게 식별한 수)
 # False Positive (FP): Positive 클래스를 잘못 예측한 경우(부정적인 클래스를 긍정적인 클래스로 잘못 분류한 수)

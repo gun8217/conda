@@ -1,3 +1,4 @@
+# manhattan distance
 import random
 
 vec_dim = 5
