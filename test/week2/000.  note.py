@@ -21,14 +21,26 @@ for score in scores:
 print(f"{passY = }")
 print(f"{passN = }")
 
-# 절대값
 datas = [random.randint(-10, 10) for _ in range(10)]
-viewArea = [data for data in datas if data > 0]
-print(viewArea)
+# 절대값
+abs_val2 = []
+for data in datas:
+    if data >= 0:
+        abs_val2.append(data)
+    else:
+        abs_val2.append(-data)
+print(f"{abs_val2 = }")
 
 # ReLU 양수 = 1, 음수 = 0
+relu = 0
+for data in datas:
+    if data > 0: relu = data
+    else: relu = 0
+    print(f"{relu = }")
 
 # ReLU 리스트
+reluList = [data for data in datas if data > 0]
+print(f"{reluList = }")
 
 # 3n cycle
 

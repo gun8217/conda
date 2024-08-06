@@ -3,10 +3,10 @@
 # 컨볼루션 신경망(CNN)과 다층 퍼셉트론(MLP)에서 사용
 import random
 
-num = int(input("ReLU : "))
-if num > 0: relu = num
-else: relu = 0
-print(f"relu({num}) = {relu}")
+# num = int(input("ReLU : "))
+# if num > 0: relu = num
+# else: relu = 0
+# print(f"relu({num}) = {relu}")
 
 
 ######## ReLU 리스트 ###################################################

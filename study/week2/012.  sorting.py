@@ -21,4 +21,4 @@ for _ in range(n_students):
 print(f"{scores_sort = }")
 print(f"{scores_ = }")
 
-# 오름차순 : max를 min으로 등호 변환
+# 오름차순 : max를 min으로, 등호 변환
