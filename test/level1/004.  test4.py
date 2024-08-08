@@ -16,9 +16,10 @@ print(f"{dataBox2 = }")
 plus_sum = [data + 10 for data in dataBox2]
 print(f"{plus_sum = }\n")
 
-# 상수 더해서 평균
-
-# Squared Error
+# Squared Error(2)
+data_a, data_b = [1, 2, 3], [10, 20, 30]
+squared_error = [(a - b)**2 for a, b in zip(data_a, data_b)]
+print(f"{squared_error = }")
 
 # Mean Squared Error
 
