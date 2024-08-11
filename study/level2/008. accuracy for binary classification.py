@@ -1,5 +1,5 @@
 # accuracy fo binary classification
-# 이진 분류 : 전체 예측 중에서 올바르게 분류된 샘플의 비율(정확도)
+# 이진 분류(정확도) : 전체 예측 중에서 올바르게 분류된 샘플의 비율
 
 import random
 
