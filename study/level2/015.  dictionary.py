@@ -13,13 +13,6 @@ n_students = 20
 scores = [random.randint(0, 100) for _ in range(n_students)]
 print(scores)
 
-
-import random
-
-n_students = 20
-scores = [random.randint(0, 100) for _ in range(n_students)]
-print(scores)
-
 score_info = {}
 # 표준편차
 score_info['mean'] = sum(scores) / len(scores)

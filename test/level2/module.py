@@ -41,9 +41,7 @@ def func_manhDist(*vectors):
 def func_max(datas):
     max_data = None # 0이면 음수의 값에선 error 처리
     for data in datas:
-        if max_data == None:
-            max_data = data
-        elif data > max_data:
+        if max_data == None or data > max_data:
             max_data = data
     return max_data
 
@@ -55,11 +53,10 @@ def func_min(datas):
             min_data = data
     return min_data
 
+
 def max_min_idx(datas):
-    max_data = func_max(datas)
-    min_data = func_min(datas)
-    max_data_idx = None
-    min_data_idx = None
+    max_data, min_data = func_max(datas), func_min(datas)
+    max_data_idx, min_data_idx = None, None
     for idx, data in enumerate(datas):
         if data == max_data:
             max_data_idx = idx
