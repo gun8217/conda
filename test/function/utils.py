@@ -75,8 +75,7 @@ def func_dot(*vectors):
 
 
 def func_eucDist(*vectors):
-    results = []
-    n_vectors = len(vectors)
+    results = []; n_vectors = len(vectors)
     for i in range(n_vectors):
         for j in range(i + 1, n_vectors):
             distance = sum((a - b)**2 for a, b in zip(vectors[i], vectors[j]))**0.5
@@ -85,12 +84,15 @@ def func_eucDist(*vectors):
 
 
 def func_manhDist(*vectors):
-    results = []
-    n_vectors = len(vectors)
-    for i in range(n_vectors):
-        for j in range(i + 1, n_vectors):
-            distance = sum(a- b if (a - b) > 0 else -(a - b) for a, b in zip(vectors[i], vectors[j]))
-            results.append(distance)    
+    results = []; n_vector = len(vectors)
+    for i in range(n_vector):
+        for j in range(i + 1, n_vector):
+            manh_dist = 0
+            for a, b in zip(vectors[i], vectors[j]):
+                diff = a - b
+                abs_diff = -diff if diff < 0 else diff
+                manh_dist += abs_diff
+            results.append(manh_dist)
     return results
 
 
@@ -173,6 +175,7 @@ def get_randint_data(n_data, min_val, max_val, random_seed):
     data = [random.randint(min_val, max_val) for _ in range(n_data)]
     return data
 
+
 def cal_max_min(data, max=True):
     target_value, target_idx = None, None
     for sample_idx, sample in enumerate(data):
@@ -213,8 +216,18 @@ def unique(data):
     return list(unique_dict.keys()), list(unique_dict.values())
 
 
+def unique2(data, return_cnts=False):
+    unique_dict = {}
+    for sample in data:
+        unique_dict[sample] = unique_dict.get(sample, 0) + 1
+        
+    if return_cnts:
+        return list(unique_dict.keys()), list(unique_dict.values())
+    else:
+        return list(unique_dict.keys())
+    
+
 if __name__ == '__main__':
-    data = [1, 2, 3]
-    mean = cal_mean(data)
-    var = cal_var(data)
-    print(f"{mean = }, {var = }")
+    data = [1, 2, 3, 1, 2, 3, 1, 2, 3]
+    print(unique2(data))
+    print(unique2(data, return_cnts=True))
