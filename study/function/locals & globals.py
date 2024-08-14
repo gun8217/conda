@@ -1,5 +1,5 @@
 import random
-from ex1 import *
+from namespace_dict import *
 
 
 def cal_std(scores):

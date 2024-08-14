@@ -1,4 +1,4 @@
-# class : object(data + method) type
+# class : object(data + method, instance) type
 
 class TestClass:
     pass

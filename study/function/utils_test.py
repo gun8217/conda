@@ -154,17 +154,16 @@ def func_manhDist(*vectors):
 
 
 def sort(data, descending=True):
-    target_val, target_idx = None, None
-    for idx, sample in enumerate(data):
-        if descending:
-            if target_val == None or sample > target_val:
-                target_val += sample
-                target_idx += idx
-        else:
-            pass
+    data_ = data.copy(); data_sort = []
+    n_data = len(data)
+    for _ in range(n_data):
+        target_value, target_idx = cal_max_min(data_, max=descending)
+        data_sort.append(target_value)
+        data_.pop(target_idx)
+    return data_sort
 
 
-data1 = get_random_data(count=15)
+data1 = get_random_data(count=10)
 print(f"{data1 = }")
 print(sort(data1))
 

@@ -1,4 +1,4 @@
-from ex1 import *
+from namespace_dict import *
 
 def test_function():
     x = 10

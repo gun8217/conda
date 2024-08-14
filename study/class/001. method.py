@@ -8,14 +8,6 @@ class Person:
         print('Goodbye!')
 
 
-# Person = Person()
-# Person.say_hello()
-# print()
-# Person.say_bye()
-# print()
-# print()
-
-
 Person1, Person2 = Person(), Person()
 print(Person1.say_hello())
 print(Person1.say_bye())
