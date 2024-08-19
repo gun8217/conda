@@ -11,37 +11,60 @@ class RandomDataGenerator:
         return [random.gauss(mean, std) for _ in range(count)]
 
 
+class StatisticsCalculator1:
+    def __init__(self, data):
+        self.data = data
+
+    def cal_mean(self):
+        self.mean = sum(self.data) / len(self.data)
+        return self.mean
+    
+    def cal_var(self):
+        if 'mean' not in dir(self):
+            self.cal_mean()
+        self.var = sum((sample - self.mean)**2 for sample in self.data) / len(self.data)
+        return self.var
+    
+    def cal_std(self):
+        if 'var' not in dir(self):
+            self.cal_var()
+        self.std = self.var**0.5
+        return self.std
+    
+
 class StatisticsCalculator:
-    def cal_mean(self, data):
-        return sum(data) / len(data)
+    def __init__(self, data):
+        self.data = data
+        self._cal_mean_var_std()
+        self._cal_min_max()
+
+    def _cal_mean_var_std(self):
+        self.mean = sum(self.data) / len(self.data)
+        self.var = sum((sample - self.mean)**2 for sample in self.data) / len(self.data)
+        self.std = self.var**0.5
     
-    def cal_var(self, data):
-        mean = self.cal_mean(data)
-        var = sum((sample - mean)**2 for sample in data) / len(data)
-        return var
-    
-    def cal_std(self, data):
-        return self.cal_var(data)**0.5
-    
-    def cal_max(self, data, return_idx=False):
-        target_val, target_idx = None, None
-        for idx, sample in enumerate(data):
-            if target_val == None or sample > target_val:
-                target_val = sample
-                target_idx = idx                
-        if return_idx: return target_val, target_idx
-        else: return target_val
-    
-    def cal_min(self, data, return_idx=False):
-        target_val, target_idx = None, None
-        for idx, sample in enumerate(data):
-            if target_val == None or sample < target_val:
-                target_val = sample
-                target_idx = idx        
-        if return_idx: return target_val, target_idx
-        else: return target_val
+    def _cal_min_max(self):
+        self.max, self.max_idx = None, None
+        self.min, self.min_idx = None, None
+        for idx, sample in enumerate(self.data):
+            if self.max == None or sample > self.max:
+                self.max = sample
+                self.max_idx = idx
+            if self.min == None or sample < self.min:
+                self.min = sample
+                self.min_idx = idx
+
+    def get_mean(self): return self.mean    
+    def get_var(self): return self.var    
+    def get_std(self): return self.std
+    def get_max(self, return_idx=False):
+        if return_idx: return f"max value:{self.max}", f"max index:{self.max_idx}"
+        else: return f"max value:{self.max}"
+    def get_min(self, return_idx=True):
+        if return_idx: return f"min value:{self.min}", f"min index:{self.min_idx}"
+        else: return f"min value:{self.min}"
         
-        
+
 class Preprocessing:
     def subtraction(self, data):
         stat_cal = StatisticsCalculator()
@@ -61,3 +84,10 @@ class Preprocessing:
         data_processed = [(sample - min_val) / (max_val - min_val)
                           for sample in data]
         return data_processed
+    
+
+data = [1, 2, 3, 4, 5]
+cal = StatisticsCalculator(data)
+
+print(cal.get_max())
+print(cal.get_min())

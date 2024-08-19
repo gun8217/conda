@@ -25,14 +25,3 @@ data_norm = preprocessor.min_max_normalizing(data)
 print(f"min_max_normalizing: {data_norm}")
 print("after min:", stat_cal.cal_min(data_norm))
 print("after max:", stat_cal.cal_max(data_norm))
-
-# print("=========before data=========")
-
-# print(f"std: {stat_cal.cal_std(data):.2f}")
-
-
-# print("=========after data=========")
-# print("mean:", stat_cal.cal_mean(data_mean))
-# print(f"std: {stat_cal.cal_std(data_stdz):.2f}")
-# print("min:", stat_cal.cal_min(data))
-# print("max:", stat_cal.cal_max(data))

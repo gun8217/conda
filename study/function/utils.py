@@ -93,6 +93,7 @@ def func_manhDist(*vectors):
                 abs_diff = -diff if diff < 0 else diff
                 manh_dist += abs_diff
             results.append(manh_dist)
+            # sum(abs(u_el - v_el) for u_el, v_el in zip(u, v))
     return results
 
 
