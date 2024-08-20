@@ -1,5 +1,3 @@
-# 표준정규분포 분포도 : 68%, 95%, 99.7%, 이외는 outline이라 함.
-
 import numpy as np
 import matplotlib.pyplot as plt
 

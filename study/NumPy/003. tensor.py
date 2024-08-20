@@ -1,10 +1,10 @@
-import numpy as np
-
 ######## Shapes of ndarrays
 # Scalar : 0차 텐서 : ()
 # Vector : 1차 텐서 : (m,)
 # Matrix : 2차 텐서 : (n, m)
 # 고차원 : 3차 텐서 : (o, n, m)
+
+import numpy as np
 
 scalar_np = np.array(3.14)
 vec_np = np.array([1, 2, 3])
