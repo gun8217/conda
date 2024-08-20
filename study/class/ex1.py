@@ -1,41 +1,19 @@
-import os
+from utils import print_attributes
 
 
-class Human:
-    def _print_location(self):
-        print("Current location:", f"{self.x_location}, {self.y_location}")
-
-    def init_location(self):
-        self.x_location = 0
-        self.y_location = 0
-        self._print_location()
-
-    def move_forward(self):
-        self.x_location += 1
-        self._print_location()
-
-    def move_backward(self):
-        self.x_location -= 1
-        self._print_location()
-
-    def move_up(self):
-        self.y_location += 1
-        self._print_location()
-
-    def move_down(self):
-        self.y_location -= 1
-        self._print_location()
+class UserCharacter:
+    def attack(self):
+        print("일반 공격!")
 
 
-human = Human()
-human.init_location()
-human.move_forward()
-human.move_forward()
-human.move_forward()
-human.move_backward()
-human.move_backward()
-human.move_up()
-human.move_up()
-human.move_up()
-human.move_down()
-human.move_down()
+class Knigth(UserCharacter):
+    def repeating_slach(self):
+        print("[기사] 연속 베기!")
+
+
+user_char = UserCharacter()
+print_attributes(user_char)
+
+knigth = Knigth()
+print_attributes(knigth)
+knigth.repeating_slach()

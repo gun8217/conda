@@ -1,26 +1,28 @@
+from utils import print_attributes
 
 
-class Human:
-    def __init__(self):
-        self.location = 0
-        self._print_current_location()
-
-    def _print_current_location(self):
-        print("Current location:", self.location)
-
-    def move_forward(self):
-        self.location += 1
-        self._print_current_location()
-
-    def move_backward(self):
-        self.location -= 1
-        self._print_current_location()
+class Character:
+    def __init__(self, HP, ATK):
+        self.lv = 1
+        self.HP = HP
+        self.ATK = ATK
+    
+    def get_lv(self): return self.lv
+    def get_HP(self): return self.HP
+    def get_ATK(self): return self.ATK
 
 
-human = Human()
+class Knigth(Character):
+    def __init__(self, name, HP, ATK):
+        super().__init__(HP, ATK)
+        self.name = name
 
-human.move_forward()
-human.move_forward()
-human.move_forward()
-human.move_backward()
-human.move_backward()
+    def get_name(self): return self.name
+
+
+knigth = Knigth('Shin', 100, 10)
+print_attributes(knigth)
+print(knigth.get_name())
+print(knigth.get_lv())
+print(knigth.get_HP())
+print(knigth.get_ATK())

@@ -43,18 +43,25 @@
 
 # 문자열 길이
 string = "나한테 있는"
-len_string = 0
-for char in string:
-    if char != " ":
-        len_string += 1
-
+# len_string = 0
+# for char in string:
+#     if char != " ":
+#         len_string += 1
+len_string = len([char for char in string if char != " "])
 print(len_string)
 
 # 짝수 합계
 import random
 datas = [random.randint(0, 100) for _ in range(10)]
 print(datas)
+even = 0
+for data in datas:
+    if data % 2 == 0:
+        even += data
+
+print(datas)
 
 # 달력
+
 
 # 팩토리얼 계산기

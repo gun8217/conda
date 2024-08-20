@@ -1,40 +1,40 @@
-import os
+from utils import print_attributes
 
 
-class Human:
-    def _print_location(self):
-        print("Current location:", f"{self.x_location}, {self.y_location}")
-
-    def init_location(self):
-        self.x_location = 0
-        self.y_location = 0
-        self._print_location()
-
-    def move_left(self):
-        self.x_location += 1
-        self._print_location()
-
-    def move_right(self):
-        self.x_location -= 1
-        self._print_location()
-
-    def move_up(self):
-        self.y_location += 1
-        self._print_location()
-
-    def move_down(self):
-        self.y_location -= 1
-        self._print_location()
+class UserCharacter:
+    def attack(self):
+        print("일반 공격!")
 
 
-human = Human()
-human.init_location()
+class Knigth(UserCharacter):
+    def attack(self):
+        print("[기사] 일반 공격!")
 
-while True:
-    move = input("[1] 위로 이동 [2] 아래로 이동 \n [3] 오른쪽으로 이동 [4] 왼쪽으로 이동:")
-    os.system('cls') # clear
-    if move == '1' : human.move_up()
-    elif move == '2' : human.move_down()
-    elif move == '3' : human.move_right()
-    elif move == '4' : human.move_left()
-    else: raise ValueError("[Error] Invalid Input")
+    def repeating_slach(self):
+        print("[기사] 연속 베기!")
+
+
+class Magician(UserCharacter):
+    def attack(self):
+        super().attack()
+        print("[마법사] 일반 공격!")
+
+    def fire_ball(self):
+        print("[마법사] 화염 공 던지기!")
+
+
+class Archer(UserCharacter):
+    def double_shot(self):
+        print("[궁사] 화살 두개 쏘기!")
+
+
+knigth, magician, archer = Knigth(), Magician(), Archer()
+print_attributes(knigth)
+print_attributes(magician)
+print_attributes(archer)
+
+knigth.attack()
+knigth.repeating_slach()
+magician.attack()
+magician.fire_ball()
+archer.double_shot()

@@ -47,47 +47,57 @@ class StatisticsCalculator:
         self.max, self.max_idx = None, None
         self.min, self.min_idx = None, None
         for idx, sample in enumerate(self.data):
-            if self.max == None or sample > self.max:
-                self.max = sample
-                self.max_idx = idx
-            if self.min == None or sample < self.min:
-                self.min = sample
-                self.min_idx = idx
-
+            if self.max is None:
+                self.max, self.max_idx = sample, idx
+                self.min, self.min_idx = sample, idx
+            else:
+                if sample > self.max:
+                     self.max, self.max_idx = sample, idx
+                if sample < self.min:
+                     self.min, self.min_idx = sample, idx
+                
     def get_mean(self): return self.mean    
     def get_var(self): return self.var    
     def get_std(self): return self.std
     def get_max(self, return_idx=False):
-        if return_idx: return f"max value:{self.max}", f"max index:{self.max_idx}"
-        else: return f"max value:{self.max}"
-    def get_min(self, return_idx=True):
-        if return_idx: return f"min value:{self.min}", f"min index:{self.min_idx}"
-        else: return f"min value:{self.min}"
+        if return_idx: return self.max, self.max_idx
+        else: return self.max
+    def get_min(self, return_idx=False):
+        if return_idx: return self.min, self.min_idx
+        else: return self.min
         
 
 class Preprocessing:
-    def subtraction(self, data):
-        stat_cal = StatisticsCalculator()
-        mean = stat_cal.cal_mean(data)
-        data = [sample - mean for sample in data]
-        return data
-            
-    def standardization(self, data):
-        stat_cal = StatisticsCalculator()
-        mean, std = stat_cal.cal_mean(data), stat_cal.cal_std(data)
-        data_processed = [(sample - mean) / std for sample in data]
-        return data_processed
+    def __init__(self, data):
+        self.data = data
+
+        self.stat_cal = StatisticsCalculator(self.data)
+        self.mean = self.stat_cal.get_mean()
     
-    def min_max_normalizing(self, data):
-        stat_cal = StatisticsCalculator()
-        max_val, min_val = stat_cal.cal_max(data), stat_cal.cal_min(data)
+    def mean_subtraction(self):
+        mean = self.mean
+        data_processed = [sample - mean for sample in self.data]
+        return data_processed
+
+    def standardization(self):
+        mean = self.mean
+        std = self.stat_cal.get_std()
+        
+        data_processed = [(sample - mean) / std for sample in self.data]
+        return data_processed
+
+    def min_max_normalizing(self):
+        max_val = self.stat_cal.get_max()
+        min_val = self.stat_cal.get_min()
         data_processed = [(sample - min_val) / (max_val - min_val)
-                          for sample in data]
+                          for sample in self.data]
         return data_processed
-    
 
-data = [1, 2, 3, 4, 5]
-cal = StatisticsCalculator(data)
 
-print(cal.get_max())
-print(cal.get_min())
+def print_attributes(obj):
+    print([attr for attr in dir(obj) if not attr.startswith('__')], '\n')
+    # print_char = []
+    # for attr in dir(obj):
+    #     if not attr.startswith('__'):
+    #         print_char.append(attr)
+    # print(print_char)
