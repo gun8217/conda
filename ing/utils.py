@@ -95,12 +95,12 @@ def sort(data, descending):
     n_data = len(data)
     for _ in range(n_data):
         if descending:
-            target = cal_max_min(data_, max_min='max')
+            target = cal_max_min(data_, max=descending)
         else:
-            target = cal_max_min(data_, max_min='min')
+            target = cal_max_min(data_, max=descending)
 
-        data_sort.append(target['value'])
-        data_.pop(target['idx'])
+        data_sort.append(target[0])
+        data_.pop(target[1])
 
     return data_sort
 
