@@ -9,7 +9,7 @@ ax1.set_xticks([0, 1, 5, 10])
 
 ax1.set_ylim([0, 100])
 ax2.set_ylim([0, 0.1])
-yticks = [i for i in range(4)]
+yticks = [i for i in range(6)]
 ax2.set_yticks(yticks)
 
 
