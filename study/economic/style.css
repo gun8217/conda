@@ -1,0 +1,15 @@
+@charset "UTF-8";
+
+*{margin:0;padding:0}
+body{padding:15px;background:#333}
+
+.intorBox{display:flex;flex-wrap:wrap;margin:50px}
+.intorBox a{position:relative;display:block;margin:25px;font-size:1.5rem;font-weight:600;color:rgba(255,255,255,.25);text-decoration:none;transition:all .5s}
+.intorBox a::after{position:absolute;left:50%;bottom:-10px;width:0;height:0;background:transparent;transition:all .5s;content:''}
+.intorBox a:hover{color:#fff}
+.intorBox a:hover::after{left:0;width:100%;height:3px;background:#fff}
+
+ul li{list-style:none;font-size:.875rem;line-height:1.5;color:rgba(255,255,255,.65)}
+ul li+li{margin-top:5px}
+ul li>b{margin-right:10px;color:rgba(255,255,255,.9)}
+
