@@ -27,9 +27,11 @@ for class_idx in range(n_class):
                 linewidth=5,
                 alpha=0.5,
                 label='class' + str(class_idx))
+    
 ax.legend(loc='center left',
             bbox_to_anchor=(1, 0.5),
             labelspacing=0.65)
+
 
 fig.tight_layout()
 plt.show()
