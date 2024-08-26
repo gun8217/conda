@@ -44,36 +44,23 @@ reshape_K = np.array(K).reshape(2, 3)
 # 2차원 배열 L = [[1, 2, 3], [4, 5, 6], [7, 8, 9]]의 각 열의 합계를 계산하세요.
 L = [[1, 2, 3], [4, 5, 6], [7, 8, 9]]
 sum_axis0 = np.sum(L, axis=0)
-print(sum_axis0)
 
 # 문제 6: 데이터 생성 및 시각화
 # n_data = 50, n_class = 3인 데이터셋을 생성하세요. 각 클래스는 [[1, 1], [5, 5], [10, 10]]을 중심으로 하고, 노이즈를 추가하여 데이터 포인트를 생성하세요.
 n_data = 50
 n_class = 3
-classes = [[1, 1], [5, 5], [10, 10]]
-
+centers = [[1, 1], [5, 5], [10, 10]]
 data = []
 for idx in range(n_class):
-    data_ = np.random.normal(loc=classes[idx], scale=1, size=(n_data, 2))
+    data_ = np.random.normal(loc=centers[idx], scale=1, size=(n_data, 2))
     data.append(data_)
-    print(data_)
-    
-# data = data.hstack(data)
-
-
+datas = np.vstack(data)
 # 생성한 데이터셋을 산점도로 시각화하고, 각 클래스 중심점을 별도로 표시하세요.
-# 각 문제 해결을 위한 가이드
-# 문제 1: 벡터와 행렬 생성
-# numpy의 np.array 또는 np.arange를 사용하여 배열을 생성합니다.
-# 문제 2: 배열 연산
-# numpy의 연산 기능 (+, np.add, np.transpose 등)을 사용하여 벡터와 행렬을 연산합니다.
-# 문제 3: 배열 슬라이싱
-# numpy 배열 인덱싱을 사용하여 특정 행 또는 배열을 추출합니다.
-# 문제 4: 배열 결합
-# numpy의 np.vstack와 np.hstack을 사용하여 배열을 수직 및 수평으로 결합합니다.
-# 문제 5: 배열 변형 및 시각화
-# numpy의 reshape과 np.sum을 사용하여 배열을 변형하고 합계를 계산합니다.
-# 시각화를 위해 matplotlib를 사용할 수 있습니다.
-# 문제 6: 데이터 생성 및 시각화
-# numpy를 사용하여 데이터 생성 및 노이즈 추가.
-# matplotlib를 사용하여 데이터와 중심점을 시각화합니다.
+fig, ax = plt.subplots(figsize=(7, 7))
+colors = ['r', 'g', 'b']
+for i in range(n_class):
+    ax.scatter(data[i][:, 0], data[i][:, 1], color=colors[i], label=f'Class {i+1}', alpha=0.5)
+for i, center in enumerate(centers):
+    ax.scatter(center[0], center[1], color='black', edgecolor='k', linewidths=2, s=200, marker='x')
+fig.tight_layout()
+plt.show()
