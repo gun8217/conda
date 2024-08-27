@@ -55,6 +55,7 @@ for x_db in X_db:
     pred = unique[np.argmax(cnts)]
     preds.append(pred)
 preds = np.array(preds)
+preds = np.array(preds)
 print(len(preds))
 
 for class_idx in range(n_classes):
