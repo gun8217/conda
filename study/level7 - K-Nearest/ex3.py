@@ -26,7 +26,7 @@ print(uniques, cnts)
 pred = int(uniques[np.argmax(cnts)])
 print(f"test data is classified as class number {pred}")
 
-fig, ax = plt.subplots(figsize=(10, 10))
+fig, ax = plt.subplots(figsize=(8, 8))
 for class_idx in range(n_classes):
     X_ = X[y == class_idx]
     ax.scatter(X_[:, 0], X_[:, 1], alpha=0.5)

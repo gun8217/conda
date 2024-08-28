@@ -5,7 +5,7 @@ tensorM = np.array([3, 4, 5, 6])
 
 unique = np.unique(tensorL)
 union = np.union1d(tensorL, tensorM)
-intersection = np.intersect1d(tensorL, tensorM)
+intersection = np.intersect1d(1000, tensorM)
 in1d = np.in1d(tensorL, tensorM)
 setdiff1d = np.setdiff1d(tensorL, tensorM)
 setxor1d = np.setxor1d(tensorL, tensorM)
