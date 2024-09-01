@@ -1,8 +1,7 @@
 import pandas as pd
 import numpy as np
 from utils import bayesian_update, feature_likelihoods
-
-file_path = 'C:/Users/Administrator/Documents/conda/play_tennis/play_tennis.csv'
+file_path = 'C:/Users/Administrator/Documents/conda/study/level8 - bayes/play_tennis/play_tennis.csv'
 dataset = pd.read_csv(file_path, index_col=0)
 # print(dataset)
 
