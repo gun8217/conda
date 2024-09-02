@@ -14,27 +14,24 @@ iris_data = pd.DataFrame(data=data, columns=feature_names + ['class'])
 
 test_data = iris_data.iloc[0]
 test_data_features = test_data[:-1]
-iris_df = iris_data.drop(index=0)
-print(test_data_features)
+iris_data = iris_data.drop(index=0)
 
 xmaxes = iris_data.max(axis=0)
 xmins = iris_data.min(axis=0)
 
-fig, axse = plt.subplots(len(feature_names), 1, figsize=(7, 10))
+fig, axse = plt.subplots(len(feature_names), 1, figsize=(5, 7))
 
 for class_idx in range(len(class_names)):
     class_data = iris_data[iris_data['class'] == class_idx].iloc[:, :-1]
 
     data_df = pd.DataFrame({
         'mean' : class_data.mean(axis=0),
-        'std' : class_data.std(axis=0)
+        'std' : class_data.std(axis=0, ddof=1)
     })
     
     for ax_idx, ax in enumerate(axse):
         mean = data_df.iloc[ax_idx, 0]
-        print(f"{mean = }")
         std = data_df.iloc[ax_idx, 1]
-        print(f"{std = }")
 
         xmax, xmin = xmaxes.iloc[ax_idx], xmins.iloc[ax_idx]
         x = np.linspace(xmin, xmax, 100)
