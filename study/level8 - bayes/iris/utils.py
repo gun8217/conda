@@ -37,9 +37,7 @@ def cal_class_mean_std(iris_df, class_idx):
     return df_
     
 
-def draw_gaussian(axes, df_, xmaxes, xmins, class_names, class_idx, feature_names):
-    class_name = class_names[class_idx]
-    
+def draw_gaussian(axes, df_, xmaxes, xmins, feature_names):    
     for ax_idx, ax in enumerate(axes):
         mean = df_.iloc[ax_idx, 0]
         std = df_.iloc[ax_idx, 1]
@@ -87,7 +85,7 @@ if __name__ == '__main__':
     for class_idx in range(len(class_names)):
         df_ = cal_class_mean_std(iris_df, class_idx)
         
-        draw_gaussian(axes, df_, xmaxes, xmins, class_names, class_idx, feature_names)
+        draw_gaussian(axes, df_, xmaxes, xmins, feature_names)
         draw_sample(test_feature_value, axes, df_['mean'], df_['std'], class_names, class_idx)
 
     fig.tight_layout()

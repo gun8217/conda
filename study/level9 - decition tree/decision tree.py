@@ -4,7 +4,9 @@ import numpy as np
 X = np.array([[2, 3], [10, 15], [7, 8], [3, 4], [6, 7]])
 y = np.array([0, 1, 1, 0, 1])  # 0 또는 1로 클래스 레이블
 
-# 엔트로피 계산 함수
+# 엔트로피 계산 함수 : 정보와 확률은 반비례
+# ex) 1/8 정보량 = -log2 * 1/8 = 3bit
+# 정보량의 기대값 : 가중평균
 def entropy(y):
     classes, counts = np.unique(y, return_counts=True)
     probabilities = counts / len(y)
