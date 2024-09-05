@@ -7,6 +7,7 @@ import pandas as pd
 import matplotlib.pyplot as plt
 
 # 데이터 준비
+# https://www.kaggle.com/datasets/akshaydattatraykhare/diabetes-dataset/data
 file_path = 'C:/Users/Administrator/Documents/conda/study/level8 - bayes/diabetes2.csv'
 dia = pd.read_csv(file_path, index_col=0)
 print(dia.head(), dia.shape)

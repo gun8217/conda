@@ -7,6 +7,7 @@ import pandas as pd
 
 
 # 데이터 준비
+# https://ai-times.tistory.com/431
 file_path = 'C:/Users/Administrator/Documents/conda/study/level8 - bayes/BostonHousing.csv'
 boston = pd.read_csv(file_path, index_col=0)
 print(boston.head(),'\n', boston.tail(), boston.shape)
@@ -60,14 +61,6 @@ feature_importances_rounded = [round(imp, 4) for imp in regressor.feature_import
 print(feature_importances_rounded)
 print()
 
-
-# # 결정계수 계산
-# y_mean = np.mean(y_test)
-# ss_total = np.sum((y_test - y_mean) ** 2)  # 총 제곱합
-# ss_residual = np.sum((y_test - pred) ** 2)  # 잔차 제곱합
-
-# r2 = 1 - (ss_residual / ss_total)
-# print(r2)
 
 # 결정 계수 계산
 re_score1 = regressor.score(X_test, y_test)
