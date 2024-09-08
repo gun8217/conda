@@ -27,7 +27,7 @@ test_acc = model.score(X_test, y_test)
 print("test accuracy :", test_acc)
 
 cm = confusion_matrix(y_test, y_pred)
-print(f"confusion matrix: {cm}")
+print(f"confusion matrix:\n{cm}")
 
 
 # # kaggle - dataset

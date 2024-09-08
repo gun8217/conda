@@ -1,6 +1,4 @@
 from sklearn.tree import DecisionTreeClassifier
-from sklearn.metrics import classification_report
-from sklearn.metrics import confusion_matrix
 
 from utils import *
 
@@ -10,40 +8,20 @@ natural, data, le_disaster, le_damage = dataLoad()
 # 데이터 분할
 X, X_train, X_test, y_train, y_test = dataSplit(data)
 
+# 모델 훈련 학습 및 결과
+desition_gini = modelAccPred(DecisionTreeClassifier(random_state=42), data)
 
-desition_gini = DecisionTreeClassifier(random_state=42)
-desition_gini.fit(X_train, y_train)
 
-# 모델 평가
-train_acc = desition_gini.score(X_train, y_train)
-print("훈련 정확도 :", train_acc)
-
-y_pred = desition_gini.predict(X_test)
-print(classification_report(y_test, y_pred))
-
-test_acc = desition_gini.score(X_test, y_test)
-print("테스트 정확도 :", test_acc)
-
-cm = confusion_matrix(y_test, y_pred)
-print(f"예측 결과 확인:\n{cm}")
-print()
-
-for attr in dir(desition_gini):
-    if not attr.startswith('__'):print(desition_gini)
-    break
-    
-print(desition_gini.criterion)
-print(desition_gini.feature_names_in_)
-print(desition_gini.feature_importances_)
-print()
 
 # 새로운 중심기압 입력 예측
-new_pressure = [[1005]]  # 예시 중심기압
+new_pressure = [[1005], [990], [1010], [985]]  # 예시 중심기압
 new_pressure_df = pd.DataFrame(new_pressure, columns=['중심기압(hPa)'])
 predicted_category = desition_gini.predict(new_pressure_df)
 predicted_category_label = le_damage.inverse_transform(predicted_category)
 print(f'입력된 중심기압 {new_pressure[0][0]}의 피해 범주는 {predicted_category_label[0]}입니다.')
 print()
+
+
 
 # 예측된 피해 범주에 따른 비슷한 중심기압의 자연재해 찾기
 predicted_category_code = le_damage.transform(predicted_category_label)
@@ -67,26 +45,3 @@ output_file_path = 'C:/Users/Administrator/Documents/conda/test/modeling/dicisio
 print(similar_disasters[['발생년도', '소멸기간', '재해구분', '중심기압(hPa)', '순간최대풍속',
                          '일최대강우량(mm)', '사망', '실종', '부상', '재산피해규모(백만원)']]
       .to_csv(output_file_path, index=False, encoding='utf-8-sig'))
-
-
-
-
-import matplotlib.pyplot as plt
-from sklearn.tree import plot_tree
-from matplotlib import font_manager as fm
-
-# 폰트 경로 설정
-font_path = 'C:/Windows/Fonts/malgun.ttf'
-font_prop = fm.FontProperties(fname=font_path, size=12)
-plt.rcParams['font.family'] = font_prop.get_name()
-
-# 피처 이름과 클래스 이름을 문자열로 변환
-feature_names = [str(name) for name in X.columns]
-class_names = [str(label) for label in le_damage.classes_]
-
-# 결정 트리 시각화
-plt.figure(figsize=(7, 4), dpi=300)
-plot_tree(desition_gini, feature_names=feature_names, class_names=class_names, filled=True)
-plt.savefig('C:/Users/Administrator/Documents/conda/test/modeling/dicition_gini.png')
-plt.tight_layout()
-plt.show()

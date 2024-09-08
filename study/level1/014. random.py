@@ -1,8 +1,10 @@
 import random
 
+
 def random_format(numbers, decimal_places=2):
     formatted_numbers = [f"{num:.{decimal_places}f}" for num in numbers]
     return formatted_numbers
+
 
 data = 5; datas = [1, 2, 3, 4, 5]
 

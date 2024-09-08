@@ -25,4 +25,4 @@ test_acc = model.score(X_test, y_test)
 print("test accuracy :", test_acc)
 
 cm = confusion_matrix(y_test, y_pred)
-print("confusion matrix :", cm)
+print("confusion matrix :\n", cm)
