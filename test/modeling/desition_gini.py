@@ -14,7 +14,7 @@ desition_gini = modelAccPred(DecisionTreeClassifier(random_state=42), data)
 
 
 # 새로운 중심기압 입력 예측
-new_pressure = [[1005], [990], [1010], [985]]  # 예시 중심기압
+new_pressure = [[1005]]  # 예시 중심기압
 new_pressure_df = pd.DataFrame(new_pressure, columns=['중심기압(hPa)'])
 predicted_category = desition_gini.predict(new_pressure_df)
 predicted_category_label = le_damage.inverse_transform(predicted_category)
@@ -41,7 +41,7 @@ similar_disasters = similar_disasters.dropna(subset=['재해구분'])
 
 # 피해 상황을 DataFrame 형태로 출력 (인덱스 번호 숨기기)
 print("비슷한 중심기압의 자연재해와 피해 정보:")
-output_file_path = 'C:/Users/Administrator/Documents/conda/test/modeling/dicision_gini_1005.csv'
+output_file_path = 'C:/Users/user/Documents/conda/test/modeling/dicision_gini_1005.csv'
 print(similar_disasters[['발생년도', '소멸기간', '재해구분', '중심기압(hPa)', '순간최대풍속',
                          '일최대강우량(mm)', '사망', '실종', '부상', '재산피해규모(백만원)']]
       .to_csv(output_file_path, index=False, encoding='utf-8-sig'))
