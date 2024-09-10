@@ -41,7 +41,7 @@ similar_disasters = similar_disasters.dropna(subset=['재해구분'])
 
 # 피해 상황을 DataFrame 형태로 출력 (인덱스 번호 숨기기)
 print("비슷한 중심기압의 자연재해와 피해 정보:")
-output_file_path = 'C:/Users/user/Documents/conda/test/modeling/dicision_gini_1005.csv'
+output_file_path = 'C:/Users/user/Documents/conda/test/modeling/disater/dicision_gini_1005.csv'
 print(similar_disasters[['발생년도', '소멸기간', '재해구분', '중심기압(hPa)', '순간최대풍속',
                          '일최대강우량(mm)', '사망', '실종', '부상', '재산피해규모(백만원)']]
       .to_csv(output_file_path, index=False, encoding='utf-8-sig'))

@@ -8,15 +8,17 @@ from sklearn.metrics import confusion_matrix
 import pandas as pd
 
 # 데이터 준비
-file_path = 'C:/Users/Administrator/Documents/conda/test/modeling/natural.csv'
+file_path = 'C:/Users/user/Documents/conda/test/modeling/disaster/natural.csv'
 natural = pd.read_csv(file_path, encoding='euc-kr')
 
 # 전처리 및 특성 선택
 data = natural.copy()
 data = data.drop(columns=['시작시간', '종료기간', '데이터기준일자'])
 data['발생년도'] = pd.to_datetime(data['시작시간'], format='%Y-%m-%d').dt.year
+
 le_damage = LabelEncoder()
 data['피해범주_encoded'] = le_damage.fit_transform(data['피해범주'])
+
 X = data[['중심기압(hPa)']]
 y = data['피해범주_encoded']
 

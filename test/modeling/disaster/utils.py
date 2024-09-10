@@ -6,7 +6,7 @@ from sklearn.metrics import confusion_matrix
 
 
 def dataLoad():
-    file_path = 'C:/Users/user/Documents/conda/test/modeling/natural.csv'
+    file_path = 'C:/Users/user/Documents/conda/test/modeling/disaster/natural.csv'
     datas = pd.read_csv(file_path, encoding='euc-kr')
     
     datas['시작시간'] = pd.to_datetime(datas['시작시간'], format='%Y-%m-%d')
