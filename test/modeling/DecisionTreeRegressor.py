@@ -6,8 +6,10 @@ from sklearn.metrics import mean_squared_error, mean_absolute_error, r2_score
 import pandas as pd
 
 # 데이터 준비
-file_path = 'C:/Users/Administrator/Documents/conda/test/modeling/natural.csv'
+# C:\Users\user\Documents\conda\test\modeling\natural.csv
+file_path = 'C:/Users/user/Documents/conda/test/modeling/natural.csv'
 dataset = pd.read_csv(file_path, encoding='euc-kr')
+# print(dataset.head())
 
 # 데이터 전처리
 datas = dataset.copy()

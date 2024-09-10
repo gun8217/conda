@@ -1,0 +1,23 @@
+내부 data 수집 - 권한자 승인
+외부 data 수집 - web, 구매등
+공공 data 수집
+
+실습 국민건강보험공단_건강검진정보.xlsx
+1. 불필요 data 제거
+2. mapping data 필요
+3. 결측치 처리 방안 논의 필요
+4. data 값 판단 기준 확인 필요
+
+https://ft-interactive.github.io/visual-vocabulary/
+
+
+Public Schedule As Date
+Sub RefreshAllData()
+    ThisWorkbook.RefreshAll
+    Call AutoRefresh
+End Sub
+Sub AutoRefresh()
+    Schedule = Now + TimeSerial(0, 0, 30)
+   
+    Application.OnTime Schedule, "RefreshAllData"
+End Sub
