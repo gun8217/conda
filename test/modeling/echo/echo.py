@@ -110,13 +110,29 @@ merged_df['일시'] = pd.to_datetime(merged_df['일시'], format='%y.%m')
 # 데이터 정렬 (시간 순서대로)
 merged_df = merged_df.sort_values(by='일시')
 
-# 그래프 그리기
-plt.figure(figsize=(12, 6))
+# 첫 번째 그래프 (보간 전)
+plt.figure(figsize=(12, 10))
+
+# 첫 번째 서브플롯 - 보간 전
+plt.subplot(2, 1, 1)  # (행, 열, 순서)
 plt.plot(merged_df['일시'], merged_df['전기(kw)'], marker='o')
-plt.xlabel('Month')
-plt.ylabel('Electricity Consumption (kw)')
-plt.title('Monthly Electricity Consumption')
-plt.xticks(rotation=45)
-plt.grid(True)
+plt.xlabel('일시')
+plt.ylabel('전기(kw)')
+plt.title('보간 전 전기 사용량')
+plt.grid(alpha=0.5)
+
+# 두 번째 서브플롯 - 보간 후
+merged_df.set_index('일시', inplace=True)
+interpolated_power = merged_df[['전기(kw)']].interpolate()
+merged_df['전기(kw)'] = interpolated_power
+
+plt.subplot(2, 1, 2)  # (행, 열, 순서)
+plt.plot(merged_df.index, merged_df['전기(kw)'], marker='o')
+plt.xlabel('일시')
+plt.ylabel('전기(kw)')
+plt.title('보간 후 전기 사용량')
+plt.grid(alpha=0.5)
+
+# 레이아웃 조정
 plt.tight_layout()
 plt.show()

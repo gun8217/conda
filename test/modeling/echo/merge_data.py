@@ -8,7 +8,7 @@ file_energy = 'C:/Users/Administrator/Documents/conda/test/modeling/echo/energy.
 energy = pd.read_csv(file_energy, encoding='euc-kr')
 energy['일시'] = energy['구분']
 
-weather_df = weather[['일시', '평균기온(℃)', '평균최고기온(℃)', '최고기온(℃)', '평균최저기온(℃)', '최저기온(℃)']]
+weather_df = weather[['일시', '평균기온(℃)', '최고기온(℃)', '최저기온(℃)']]
 weather_df.loc[:, '일시'] = pd.to_datetime(weather_df['일시'], format='%y-%b').dt.strftime('%y.%m')
 energy_df = energy[['일시', '전기(kw)', '가스(Nm3)', '수도(m3)']]
 energy_df.loc[:, '일시'] = pd.to_datetime(energy_df['일시'], format='%Y-%m').dt.strftime('%y.%m')
@@ -20,7 +20,7 @@ training_df = merged_df.dropna()
 
 # 모델 훈련
 from sklearn.model_selection import train_test_split
-X = training_df[['평균기온(℃)', '평균최고기온(℃)', '최고기온(℃)', '평균최저기온(℃)', '최저기온(℃)']]
+X = training_df[['평균기온(℃)', '최고기온(℃)', '최저기온(℃)']]
 y = training_df['전기(kw)']
 
 X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
@@ -49,7 +49,7 @@ gbr_predictions = gbr_model.predict(X_test)
 
 # NaN 값이 있는 행만 분리
 missing_data = merged_df[merged_df['전기(kw)'].isna()]
-X_missing = missing_data[['평균기온(℃)', '평균최고기온(℃)', '최고기온(℃)', '평균최저기온(℃)', '최저기온(℃)']]
+X_missing = missing_data[['평균기온(℃)', '최고기온(℃)', '최저기온(℃)']]
 
 # NaN 값을 채우기 위해 SimpleImputer 사용
 from sklearn.impute import SimpleImputer
@@ -57,7 +57,7 @@ imputer = SimpleImputer(strategy='median')
 X_missing_imputed = imputer.fit_transform(X_missing)
 
 # X_missing_imputed를 DataFrame으로 변환하고 피처 이름을 설정
-X_missing_imputed_df = pd.DataFrame(X_missing_imputed, columns=['평균기온(℃)', '평균최고기온(℃)', '최고기온(℃)', '평균최저기온(℃)', '최저기온(℃)'])
+X_missing_imputed_df = pd.DataFrame(X_missing_imputed, columns=['평균기온(℃)', '최고기온(℃)', '최저기온(℃)'])
 
 # 예측 수행
 predicted_values = decision_tree_model.predict(X_missing_imputed_df)
@@ -73,7 +73,7 @@ file_merge = 'C:/Users/Administrator/Documents/conda/test/modeling/echo/energy_a
 energy_all.to_csv(file_merge, index=False, encoding='utf-8-sig')
 
 
-
+import numpy as np
 import matplotlib.pyplot as plt
 from matplotlib import font_manager as fm
 # 폰트 경로 설정
@@ -88,11 +88,22 @@ merged_df['일시'] = pd.to_datetime(merged_df['일시'], format='%y.%m')
 # 데이터 정렬 (시간 순서대로)
 merged_df = merged_df.sort_values(by='일시')
 
+
+# 이동 평균 계산 (3개월 간 이동 평균)
+merged_df['전기(kw)_SMA'] = merged_df['전기(kw)'].rolling(window=3).mean()
+
 # 그래프 그리기
 plt.figure(figsize=(12, 6))
-plt.plot(merged_df['일시'], merged_df['전기(kw)'], marker='o')
+
+plt.plot(merged_df['일시'], merged_df['전기(kw)'], marker='o', label='원래 데이터', color='b')
+
+# 이동 평균 (막대 차트)
+plt.bar(merged_df.index, merged_df['전기(kw)_SMA'], width=20, label='7-month SMA', alpha=0.5, color='orange')
+
+# 레이블 및 타이틀 설정
 plt.xlabel('일시')
 plt.ylabel('전기(kw)')
-plt.grid(alpha=0.5)
+plt.legend()
+plt.title('원본 데이터와 이동 평균')
 plt.tight_layout()
 plt.show()
