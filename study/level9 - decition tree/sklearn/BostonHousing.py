@@ -15,7 +15,7 @@ print(boston.head(),'\n', boston.tail(), boston.shape)
 
 # # 결측치 제거 방법1 : 선택 행 삭제
 # data = pd.read_csv(file_path)
-# # data.info()
+# data.info()
 # # print(data.isnull().sum())
 # print(data.columns[data.isnull().any()])
 # data = data.dropna()
