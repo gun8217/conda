@@ -1,7 +1,6 @@
 import numpy as np
 import pandas as pd
 
-# apply
 df_kospi = pd.read_csv('https://raw.githubusercontent.com/jin0choi1216/dataset/main/KOSPI_stocks.csv', index_col = 0)
 print(df_kospi.head())
 
