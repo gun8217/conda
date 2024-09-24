@@ -18,5 +18,5 @@ print(f"{groupby_mean = }\n")
 groupby_sum = df.groupby('팀')['점수'].sum()
 print(f"{groupby_sum = }\n")
 
-groupby_agg = df.groupby('팀')['점수'].agg(['mean', 'sum', 'count'])
+groupby_agg = df.groupby('팀')['점수'].agg(['mean', 'sum', 'count', 'median'])
 print(f"{groupby_agg = }\n")
