@@ -1,0 +1,27 @@
+### download2/sensor_log.csv
+# 필요한 라이브러리 불러오기
+import pandas as pd
+from sklearn.model_selection import train_test_split
+from sklearn.ensemble import RandomForestClassifier
+from sklearn.metrics import classification_report, confusion_matrix, accuracy_score, precision_score, recall_score, f1_score
+from sklearn.preprocessing import OneHotEncoder, MinMaxScaler
+import matplotlib.pyplot as plt
+import seaborn as sns
+from openpyxl import Workbook  # Excel 저장용 라이브러리
+# Colab 환경에서 데이터 업로드
+from google.colab import files
+uploaded = files.upload()
+# sensor_log.csv 파일 불러오기
+df = pd.read_csv('sensor_log.csv')
+
+
+### download2/sba강의자료.pdf
+예측목표 Status 컬럼 이진값 변환해서 모델이 예측할 수 있도록하기
+ERROR는 1, 그외 OK, WARN 0으로 변환
+
+결과 보낼 때
+1. confusion matrix 2. accuracy 3. precision 4. recall 5. f1 score 6. 튜닝전 / 후 값 (그 외 변수 중요도 등등 자유)
+2. 예측결과 실제값 함께 포함된 data frame 엑셀파일
+
+
+### download2/센서로그_데이터_실습.ipynb

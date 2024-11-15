@@ -1,0 +1,509 @@
+html_doc = '''
+<html>
+<head>
+    <title>웹 페이지 제목</title>
+</head>
+<body>
+    <div id="content">
+        <h1>웹 페이지 내용</h1>
+        <p>스크래핑을 위한 예시 문장입니다.</p>
+    </div>
+</body>
+</html>
+'''
+
+
+
+실시간 TOP5가져오기
+
+
+
+for page in range(1, last_page+1):
+  # URL 접속
+  response = requests.get('https://finance.naver.com/sise/dividend_list.naver')
+
+  # HTML 받아오기
+  HTML = response.text
+  soup = BeautifulSoup(HTML, 'html.parser')
+
+  table_html = soup.select('#contentarea_left > table.type_1.tb_ty')
+  df = pd.read_html(str(table_html))[0].dropna()
+
+
+  # 라이브러리 호출
+import requests
+from bs4 import BeautifulSoup
+import pandas as pd
+from io import StringIO
+
+empty_df = pd.DataFrame()
+for page in range(1, last_page+1):
+  # URL 접속
+  response = requests.get(f'https://finance.naver.com/sise/dividend_list.naver?&page={page}')
+
+  # HTML 받아오기
+  HTML = response.text
+  soup = BeautifulSoup(HTML, 'html.parser')
+
+  table_html = soup.select('#contentarea_left > table.type_1.tb_ty')
+  df = pd.read_html(StringIO(str(table_html)))[0].dropna()
+  df.columns = df.columns.droplevel(1) # 멀티 인덱스 제거
+
+  empty_df = pd.concat([empty_df, df])
+empty_df
+
+
+테마별 시세 read_html 활용해서 하나의 데이터 프레임으로 가져오기
+
+
+yes24 : https://www.yes24.com/Product/Search?domain=ALL&query=%25EA%25B0%2595%25ED%2599%2594%25ED%2595%2599%25EC%258A%25B5&page=1
+책 제목, 저자, 출판사 , 가격을 하나의 데이터 프레임으로 가져오기
+
+
+driver.execute_script('window.scrollTo(0, 2500);')
+driver.execute_script('window.scrollTo(0,document.body.scrollHeight);')
+# 1. 네이버 창을 띄웁니다.
+# 2. '연예인 하하'를 검색합니다.
+# 3. '연예인 하하' 검색결과를 지웁니다.
+# 4. 그창을 유지한 상태에서 '연예인 유재석'을 검색합니다.
+# 5. 스크롤을 최대한으로 내립니다.
+# 6. 가장 하단의 검색결과로 나오는 뉴스 타이틀 4개를 출력합니다.
+
+
+# 1. 기상청 날씨누리 홈페이지에 접속합니다.
+# 2. '부산'을 검색합니다.
+# 3. 검색결과로 나오는 가장 상단의 '해운대해수욕장'을 클릭합니다.
+# 4. '해운대해수욕장'의 온도, 습도, 바람 가져오기
+
+
+# 1. 네이버 지도에 들어갑니다.
+# 2. 용문시장 맛집, 신용산역 맛집 각 1 page의 가게 이름, 카테고리,평점, 리뷰수를 아래 표와 같은 데이터프레임으로 가져 옵니다.
+
+
+driver.find_elements(By.CSS_SELECTOR, 'yt-formatted-string.style-scope.ytd-video-renderer')
+:not(#description-text)
+
+
+import os
+from dotenv import load_dotenv
+
+# .env 파일 로드
+load_dotenv()
+
+# 환경 변수 확인
+my_variable = os.getenv('OPENAI_API_KEY')  # .env 파일에 MY_VARIABLE=some_value와 같은 형식으로 정의된 값을 가져옴
+print("OPENAI_API_KEY:", my_variable)
+
+
+!pip install python-dotenv
+
+
+from openai import OpenAI
+client = OpenAI()
+
+completion = client.chat.completions.create(
+    model="gpt-4o-mini",
+    messages=[
+        {"role": "system", "content": "You are a helpful assistant."},
+        {
+            "role": "user",
+            "content": "Write a haiku about recursion in programming."
+        }
+    ]
+)
+
+print(completion.choices[0].message)
+
+
+https://platform.openai.com/tokenizer
+
+
+from youtube_transcript_api import YouTubeTranscriptApi
+video_url = 'https://www.youtube.com/watch?v=CHGMgH2dHSg&list=RDNSCHGMgH2dHSg&start_radio=1'
+def get_video_id(video_url):
+    video_id = video_url.split('?v=')[-1][:11]
+    return video_id
+video_id = get_video_id(video_url)
+
+
+transcript_list = YouTubeTranscriptApi.list_transcripts(video_id)
+
+for transcript in transcript_list:
+    print(transcript.language, transcript.language_code)
+
+
+transcript = YouTubeTranscriptApi.get_transcript(video_id, languages=['ko'])
+transcript
+
+
+# 텍스트 형식으로 자막가져오기
+from youtube_transcript_api.formatters import TextFormatter
+text_fomatter = TextFormatter()
+text_transcript = text_fomatter.format_transcript(transcript)
+text_transcript
+
+
+from openai import OpenAI
+client = OpenAI()
+
+messages = [
+    {'role' : 'system', 'content' : 'You are a helpful assistant.'},
+    {'role' : 'user', 'content' : '오후 5시에 듣기 좋은 노래 가사를 만들어줘'}
+]
+response = client.chat.completions.create(
+    model = 'gpt-4o-mini',
+    messages= messages
+)
+
+response.choices[0].message.content
+
+
+from openai import OpenAI
+client = OpenAI()
+
+messages = [
+    {'role' : 'system', 'content' : '당신은 유튜브 자막을 요약하는 봇입니다.'},
+    {'role' : 'user', 'content' : f"""
+        아래 [자막]을 [양식]을 참고해서 주요 내용을 위주로 요약해주세요.
+     
+        [양식]
+        주요 내용 1 :
+        주요 내용 2 :
+        ...
+     
+        [자막]
+        {transcript_info}
+        """}
+]
+response = client.chat.completions.create(
+    model = 'gpt-4o-mini',
+    messages= messages
+)
+
+response.choices[0].message.content
+
+
+from openai import OpenAI
+client = OpenAI()
+
+response = client.images.generate(
+  model="dall-e-3",
+  prompt="a white siamese cat",
+  size="1024x1024",
+  quality="standard",
+  n=1,
+)
+
+image_url = response.data[0].url
+
+
+from openai import OpenAI
+
+client = OpenAI()
+# alloy, echo, fable, onyx, nova, and shimmer
+response = client.audio.speech.create(
+    model="tts-1-hd",
+    voice="fable",
+    input="안녕하세요. 만나서 반갑습니다.",
+)
+
+response.stream_to_file("output.mp3")
+
+
+from openai import OpenAI
+client = OpenAI()
+
+audio_file= open("output.mp3", "rb")
+transcription = client.audio.transcriptions.create(
+  model="whisper-1", 
+  file=audio_file
+)
+print(transcription.text)
+
+
+### download/img1.png
+import base64
+from openai import OpenAI
+
+client = OpenAI()
+
+# Function to encode the image
+def encode_image(image_path):
+  with open(image_path, "rb") as image_file:
+    return base64.b64encode(image_file.read()).decode('utf-8')
+
+# Path to your image
+image_path = "path_to_your_image.jpg"
+
+# Getting the base64 string
+base64_image = encode_image(image_path)
+
+response = client.chat.completions.create(
+  model="gpt-4o-mini",
+  messages=[
+    {
+      "role": "user",
+      "content": [
+        {
+          "type": "text",
+          "text": "What is in this image?",
+        },
+        {
+          "type": "image_url",
+          "image_url": {
+            "url":  f"data:image/jpeg;base64,{base64_image}"
+          },
+        },
+      ],
+    }
+  ],
+)
+
+print(response.choices[0])
+
+
+### download/vod1_*.mp4
+영상 설명 생성하기
+from openai import OpenAI
+client = OpenAI()
+
+def get_embedding(text):
+    response = client.embeddings.create(
+        input=text,
+        model="text-embedding-3-small"
+    )
+    return response.data[0].embedding
+
+cat = get_embedding('고양이')
+dog = get_embedding('강아지')
+
+
+from sklearn.decomposition import PCA
+
+# PCA 적용 (주성분 수 지정, 예: 2)
+pca = PCA(n_components=2)
+principal_components = pca.fit_transform(df.T)
+
+# 결과를 데이터프레임으로 변환
+principal_df = pd.DataFrame(data=principal_components, columns=['PC1', 'PC2'])
+principal_df.head()
+
+
+import plotly.express as px
+fig = px.scatter(principal_df, x="X", y="Y")
+fig.show()
+
+
+# streamlit_text.py
+import streamlit as st
+
+st.title('타이틀 with 이모지 :bar_chart:')
+
+
+streamlit run run.py
+
+
+### download/img2.png
+https://streamlit-emoji-shortcodes-streamlit-app-gwckff.streamlit.app/
+
+st.markdown('# 타이틀')
+st.markdown('## 헤더')
+st.markdown('### 서브헤더')
+st.markdown('*이탤릭체*')
+st.markdown('_이탤릭체_')
+st.markdown('**볼드체**')
+st.markdown('* 목록1')
+st.markdown('+ 목록2')
+st.markdown('- 목록3')
+st.markdown('1. 번호 목록1')
+st.markdown('2. 번호 목록2')
+st.markdown('> 인용문 작성')
+st.markdown('[Google](https://www.google.com)')
+st.markdown('---')
+st.markdown('***')
+st.markdown(':green[녹색], :red[빨강]')
+
+
+import streamlit as st
+import pandas as pd
+
+
+st.title('데이터프레임 튜토리얼')
+
+# 예시 데이터 생성
+data = {
+    "회사명": ["삼성전자", "현대자동차", "SK하이닉스", "NAVER", "LG화학"],
+    "주식 코드": ["005930", "005380", "000660", "035420", "051910"],
+    "현재 가격": [56000, 180000, 85000, 350000, 680000],
+    "전일 대비": [-500, 2000, -1500, 5000, 8000],
+    "시가": [56500, 178000, 86500, 345000, 672000],
+    "고가": [57000, 182000, 87000, 352000, 690000],
+    "저가": [55000, 176000, 84000, 340000, 670000],
+    "거래량": [10500000, 1400000, 750000, 500000, 800000]
+}
+# 데이터프레임 생성
+df = pd.DataFrame(data)
+st.dataframe(df)
+
+
+students = ['Student A', 'Student B', 'Student C', 'Student D', 'Student E', 
+            'Student F', 'Student G', 'Student H', 'Student I', 'Student J']
+math_scores = [85, 78, 92, 76, 89, 65, 95, 88, 70, 82]
+science_scores = [90, 80, 88, 70, 92, 60, 96, 85, 72, 78]
+
+
+if button:
+    # 중복되지 않는 6개의 숫자를 저장할 집합
+    unique_numbers = set()
+
+    # 집합의 크기가 6이 될 때까지 반복
+    while len(unique_numbers) < 6:
+        num = random.randint(1, 45)  # 예시: 1부터 45 사이의 랜덤 숫자
+        unique_numbers.add(num)
+
+    # 집합을 리스트로 변환하여 출력
+    unique_numbers = list(unique_numbers)
+    st.write(f'Lottery numbers : {unique_numbers}')
+
+
+# 1부터 46까지의 숫자 중에 6개가 버튼을 누르면 출력되게
+if button:
+    random_numbers = [random.randint(1,46) for _ in range(6)]
+    st.write(*random_numbers)
+
+
+button_lotto = st.button('로또 번호 랜덤 생성')
+
+if button_lotto:
+    lotto_num = []
+    while len(lotto_num) < 6:
+        num = random.randint(1, 46)
+        if num not in lotto_num: lotto_num.append(num)
+    st.write(f'로또 번호: {lotto_num}')
+
+
+from datetime import datetime as dt
+import datetime
+
+
+st.subheader('')
+st.subheader('number input')
+num = st.number_input(
+    label = '나이를 입력해주세요.',
+    step = 1, # step
+    min_value = 20,  # 최소 허용 값
+    max_value = 100, # 최대 허용 값
+    value = 40 # 시작 위치
+)
+st.write(f'당신의 나이는 {num}살 입니다.')
+
+
+### download/vod2.mp4
+### download/output.mp3
+### download/img3.webp
+
+import streamlit as st
+from PIL import Image
+
+st.title('이미지, 오디오, 비디오 다루기')
+st.subheader('이미지 다루기')
+
+# 로컬 이미지 활용하기
+image_local = Image.open('file/img.webp')
+st.image(image_local, width = 400, caption = '사람들')
+image_url = 'https://upload.wikimedia.org/wikipedia/commons/thumb/d/dd/Gfp-wisconsin-madison-the-nature-boardwalk.jpg/2560px-Gfp-wisconsin-madison-the-nature-boardwalk.jpg'
+st.image(image_url, width = 400, caption = '풍경')
+
+
+# # 이미지 URL 활용하기
+# from openai import OpenAI
+# client = OpenAI()
+
+# response = client.images.generate(
+#   model="dall-e-3",
+#   prompt="a white siamese cat",
+#   size="1024x1024",
+#   quality="standard",
+#   n=1,
+# )
+
+# image_url = response.data[0].url
+
+
+### download/sk텔레콤.pdf
+from openai import OpenAI
+client = OpenAI()
+def summarize_text(text):
+    messages = [
+        {'role' : 'system', 'content' : '당신은 기업리포트를 요약하는 전문가 입니다.'},
+        {'role' : 'user', 'content' : f'''
+         아래 [기업 리포트]를 한국어로 요약해주세요.
+
+         [기업 리포트]
+         {text}
+         '''}
+    ]
+    response = client.chat.completions.create(
+        model = 'gpt-4o-mini',
+        messages= messages,
+        max_tokens= 2000, 
+        temperature= 0.5
+    )
+    return response.choices[0].message.content
+
+
+from PyPDF2 import PdfReader
+
+pdf_file = 'file/20241107_company_78309000.pdf' # PDF 파일 경로
+reader = PdfReader(pdf_file) # PDF 문서 읽기
+
+summaraize_result_list = []
+for page in reader.pages: 
+    page_text = page.extract_text() # 페이지의 텍스트 추출 
+    summaraize_result = summarize_text(page_text)
+    summaraize_result_list.append(summaraize_result)
+
+
+import streamlit as st
+from PyPDF2 import PdfReader
+from openai import OpenAI
+client = OpenAI()
+
+# 요약 기능
+def summarize_text(text):
+    messages = [
+        {'role' : 'system', 'content' : '당신은 기업리포트를 요약하는 전문가 입니다.'},
+        {'role' : 'user', 'content' : f'''
+            아래 [기업 리포트]를 한국어로 요약해주세요.
+
+            [기업 리포트]
+            {text}
+            '''}
+    ]
+    response = client.chat.completions.create(
+        model = 'gpt-4o-mini',
+        messages= messages,
+        max_tokens= 2000, 
+        temperature= 0.5
+    )
+    return response.choices[0].message.content
+
+
+# Streamlit 페이지 구성
+pdf_file = st.file_uploader("PDF 파일을 업로드하세요", type="pdf")
+
+button = st.button('PDF 요약하기')
+if button:
+    reader = PdfReader(pdf_file) # PDF 문서 읽기
+
+    # 각 페이지를 요약
+    summaraize_result_list = []
+    for page in reader.pages: 
+        page_text = page.extract_text() # 페이지의 텍스트 추출 
+        summaraize_result = summarize_text(page_text)
+        summaraize_result_list.append(summaraize_result)
+
+    # 각 요약된 결과를 연결 후 요약 진행
+    result = " ".join(summaraize_result_list)
+    summaraize_all_pages = summarize_text(result)
+    st.write(summaraize_all_pages)
