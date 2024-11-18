@@ -27,6 +27,7 @@ class MLP(nn.Module):
     def __init__(self):
         super(MLP, self).__init__()
         
+        # 다층 퍼셉트론(MLP, Multi-Layer Perceptron)
         self.fc1 = nn.Linear(in_features=2, out_features=32)
         self.fc1_act = nn.ReLU()
         

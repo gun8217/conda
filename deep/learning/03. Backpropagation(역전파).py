@@ -2,7 +2,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 import matplotlib
 
-from utils08 import Model, BCELoss
+from utils03 import Model, BCELoss
 
 n_data = 100
 threshold = 1

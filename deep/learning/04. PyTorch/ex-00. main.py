@@ -1,5 +1,5 @@
-from utils10 import get_dataset, get_device, train, vis_losses_accs
-from model10 import MLP
+from utils import get_dataset, get_device, train, vis_losses_accs
+from model import MLP
 
 import torch.nn as nn
 from torch.optim import SGD
