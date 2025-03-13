@@ -7,11 +7,17 @@ const config = (api: ConfigAPI) => {
   return {
     presets: [
       "@babel/preset-env",
-      "@babel/preset-react",
-      "@babel/preset-typescript", // TypeScript 관련 프리셋 추가
+      "@babel/preset-react", // React 관련 프리셋
+      "@babel/preset-typescript", // TypeScript 관련 프리셋
     ],
     plugins: [
       "@emotion/babel-plugin", // Emotion 관련 플러그인 추가
+      [
+        "@babel/plugin-transform-react-jsx",
+        {
+          runtime: "automatic", // JSX를 automatic runtime으로 설정
+        },
+      ],
     ],
   };
 };
