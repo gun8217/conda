@@ -1,11 +1,8 @@
 {
   "compilerOptions": {
-    "target": "es2016",
+    "target": "es6",
     "module": "commonjs",
-    "jsx": "react-jsx",
-    "esModuleInterop": true,
-    "forceConsistentCasingInFileNames": true,
-    "strict": true,
-    "skipLibCheck": true
+    "esModuleInterop": true,  // 이 옵션을 반드시 추가해야 합니다.
+    "jsx": "react-jsx"
   }
 }
