@@ -6,7 +6,9 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "storybook": "storybook dev -p 6006",
     "build-storybook": "storybook build",
-    "start": "ts-node -r tsconfig-paths/register .babelrc.ts"
+    "start": "ts-node -r tsconfig-paths/register .babelrc.ts",
+    "lint": "eslint 'src/**/*.{js,jsx,ts,tsx}'",
+    "format": "prettier --write 'src/**/*.{js,jsx,ts,tsx}'"
   },
   "keywords": [],
   "author": "",
@@ -45,6 +47,8 @@
     "eslint-plugin-prettier": "^5.2.3",
     "eslint-plugin-react": "^7.37.4",
     "globals": "^16.0.0",
+    "husky": "^9.1.7",
+    "lint-staged": "^15.5.0",
     "prettier": "^3.5.3",
     "storybook": "^8.6.4",
     "ts-node": "^10.9.2",
